@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Api from "../features/api/axios";
 import ContextStore from "../Context/Mycontext";
+import Cookies from "js-cookie";
 const JeevanLogin = () => {
   const { userDataHandler, userData } = useContext(ContextStore);
   console.log(userData);
@@ -31,7 +32,7 @@ const JeevanLogin = () => {
     }
   }, [formError]);
   useEffect(() => {
-    if (userData.success) {
+    if (userData?.token || userData.success) {
       navigation("/jeevandashboard");
     }
   }, [userData]);
@@ -42,6 +43,8 @@ const JeevanLogin = () => {
       //   console.log(res);
       if (res.data.success) {
         // console.log(res.data.data.token);
+        console.log(res.data.data.token);
+        Cookies.set("userToken", res.data.data.token);
         userDataHandler(
           res.data.data.role,
           res.data.data.token,

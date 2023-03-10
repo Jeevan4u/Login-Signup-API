@@ -1,0 +1,39 @@
+body {
+  margin: 0;
+  background-color: #f2f2f2;
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+h3 {
+  font-size: 16px;
+}
+.scrollbarHide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbarHide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .shadow-box {
+    @apply bg-white rounded-md shadow-[5px_13px_14px_1px_#caccce] p-[20px] w-full;
+  }
+}
+@layer utilities {
+  .custom-input {
+    @apply h-[40px] bg-[#f2f3f3] w-full px-4 flex items-center text-[12px] border-[#e1e2e3] border-2 border-spacing-1 focus-visible:border-[#e1e2e3];
+  }
+  .btn-primary {
+    @apply flex items-center justify-center bg-[#0d9544] text-white w-[200px] h-[50px];
+  }
+  .btn-secondary {
+    @apply flex items-center justify-center bg-[#fbb041] text-white w-[200px] h-[50px];
+  }
+}
