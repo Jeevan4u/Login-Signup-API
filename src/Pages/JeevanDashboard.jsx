@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import Store from "../Context/Mycontext";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import CreateTable from "./CreateTable";
 const JeevanDashboard = () => {
   const { userData } = useContext(Store);
   const { userDataHandler } = useContext(Store);
@@ -26,8 +27,10 @@ const JeevanDashboard = () => {
 
   return (
     <div>
-      <div className="logOUT">
-        Dashboard
+      <div className="logOUT flex justify-around">
+        <div className="dashboard">
+          <h1>Dashboard</h1>
+        </div>
         <button
           className="p-2 border-[2px] border-black"
           onClick={logOutHandler}
@@ -35,6 +38,7 @@ const JeevanDashboard = () => {
           LogOut
         </button>
       </div>
+      <CreateTable />
     </div>
   );
 };
