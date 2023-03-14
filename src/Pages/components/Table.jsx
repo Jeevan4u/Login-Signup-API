@@ -10,16 +10,25 @@ const Table = ({ data }) => {
             <th>id</th>
             <th>name</th>
             <th>status</th>
+            <th>Action</th>
           </tr>
         </thead>
         {data?.map((items, i) => (
-          <tbody className="border-border-[2px]">
+          <tbody className="border-border-[2px]" key={i}>
             <tr className="text-center [&>td]:border-black [&>td]:border-[2px] [&>td]:bg-green-300 [&>td]:p-2 [&>td>.para]:border-black [&>td>p]:border-[2px]">
               <td>{items.id}</td>
               <td>{items.name}</td>
               <td>
                 {items.status}
                 <p className="para">sad</p>
+              </td>
+              <td className="flex justify-around">
+                <button className=" p-2 mt-2 border-black border-[2px]">
+                  Edit Table
+                </button>
+                <button className=" p-2 mt-2 border-black border-[2px]">
+                  Delete
+                </button>
               </td>
             </tr>
           </tbody>

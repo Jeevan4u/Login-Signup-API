@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import API from "../features/api/axios";
-import Store from "../Context/Mycontext";
 import Mycontext from "../Context/Mycontext";
 import DashboardMain from "../admin/pages/DashboardMain";
 import Table from "./components/Table";
+import TablelistPage from "./TablePage/TablelistPage";
 const CreateTable = () => {
   const { userData } = useContext(Mycontext);
 
@@ -12,13 +12,12 @@ const CreateTable = () => {
   };
   const [tableInput, setTableInput] = useState(initialTableData);
 
-  const [tableList, setTableList] = useState([]);
+  // const [tableList, setTableList] = useState([]);
 
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmitSuccess(true);
     postTableData();
   };
   const config = {
@@ -34,20 +33,19 @@ const CreateTable = () => {
     }
   };
 
-  useEffect(() => {
-    console.log("Retriveing");
+  // Retreving Tables data
+  // useEffect(() => {
+  //   retrieveTable();
+  // }, [submitSuccess]);
 
-    retrieveTable();
-  }, [submitSuccess]);
-
-  const retrieveTable = async () => {
-    try {
-      const { data } = await API.get("/tables", config);
-      setTableList(data.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const retrieveTable = async () => {
+  //   try {
+  //     const { data } = await API.get("/tables", config);
+  //     setTableList(data.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   // useEffect(() => {
   //   postTableData();
   // }, [submitSuccess]);
@@ -70,11 +68,12 @@ const CreateTable = () => {
         </div>
       </div>
 
-      <div className="DisplayTable">
+      {/* <div className="DisplayTable">
         <div className="tableWrapper">
           <Table data={tableList} />
         </div>
-      </div>
+      </div> */}
+      <TablelistPage submitSuccess={submitSuccess} />
     </>
   );
 };

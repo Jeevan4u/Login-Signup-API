@@ -18,6 +18,7 @@ const JeevanLogin = () => {
     role: "",
     token: "",
   });
+  const [loading, setLoading] = useState(false);
   const formEmailHandler = (e) => {
     setFormInput((prevState) => ({ ...prevState, email: e.target.value }));
     setFormError((prevState) => ({ ...prevState, state: false }));
@@ -39,6 +40,8 @@ const JeevanLogin = () => {
 
   const postLoginData = async () => {
     try {
+      setLoading(true);
+      console.log("loading");
       const res = await Api.post("/login", formInput);
       //   console.log(res);
       if (res.data.success) {
@@ -50,6 +53,9 @@ const JeevanLogin = () => {
           res.data.data.token,
           res.data.success
         );
+        setLoading(false);
+        console.log("Finished");
+
         // setLoginSuccess((prevState) => ({
         //   ...prevState,
         //   succeess: res.data.success,
@@ -137,7 +143,7 @@ const JeevanLogin = () => {
                     className="w-full bg-[#284A5E] rounded-sm py-[8px]"
                     onClick={submitHandler}
                   >
-                    Submit
+                    {loading ? "Submitting...." : "Submit"}
                   </button>
                 </div>
               </form>
