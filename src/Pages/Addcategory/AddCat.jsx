@@ -1,8 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import API from "../../features/api/axios";
 import Store from "../../Context/Mycontext";
-const AddCat = () => {
+const AddCat = ({ AddDetails, tittle }) => {
   const { userData } = useContext(Store);
+  console.log(AddDetails);
   const [file, setFile] = useState("");
   const initialFormInput = {
     title: "",
@@ -36,26 +37,62 @@ const AddCat = () => {
       formData.append("description", formInput.description);
       formData.append("code", formInput.code);
       formData.append("image", file);
+      tittle && formData.append("category_id", formInput.category_id);
       setPostCat(true);
-      console.log("submittingdata");
-      const { data } = await API.post("/categories", formData, config);
+      console.log(formInput);
+
+      // if (AddDetails.postSubCategory) {
+      //   const { data } = await API.post(
+      //     `/${AddDetails.postSubCategory}`,
+      //     formData,
+      //     config
+      //   );
+      // } else {
+      const { data } = await API.post(
+        `/${AddDetails ? AddDetails.postSubCategory : "categories"}`,
+        formData,
+        config
+      );
+      // }
+
       setPostCat(false);
-      console.log("submit Succesful");
     } catch (error) {
       console.log(error);
       setPostCat(false);
     }
   };
+  const handelCategoryitems = (e) => {
+    setFormInput((prev) => ({ ...prev, category_id: e.target.value }));
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     postCatData();
   };
-  console.log(postCat);
   return (
     <div className="bg-slate-300">
       <div className="AddCat border-[2px] border-black grid grid-cols-2">
         <div className="fromWrapper grid grid-cols-1 place-items-center">
           <form action="" className="flex flex-col justify-center items-end">
+            {AddDetails?.category === "Sub Category" && (
+              <div className="titleContainer my-2 self-center">
+                <label htmlFor="">Category</label>
+                <select
+                  name="category"
+                  id=""
+                  className="text-center"
+                  onChange={handelCategoryitems}
+                >
+                  <option value="none" selected disabled hidden>
+                    Select{AddDetails.category}
+                  </option>
+                  {tittle?.map((items, i) => (
+                    <option value={items.id} key={i}>
+                      {items.title}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            )}
             <div className="titleContainer my-2">
               <label htmlFor="">title : </label>
               <input
@@ -83,7 +120,6 @@ const AddCat = () => {
                 onChange={formInputCode}
               />
             </div>
-
             <button
               className="border-[2px] border-white p-2"
               onClick={handleSubmit}

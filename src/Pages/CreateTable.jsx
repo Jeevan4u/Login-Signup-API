@@ -26,6 +26,7 @@ const CreateTable = () => {
 
   const postTableData = async () => {
     try {
+      setSubmitSuccess(true);
       const res = await API.post("/tables", tableInput, config);
       setSubmitSuccess(false);
     } catch (error) {

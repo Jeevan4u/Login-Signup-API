@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import CreateTable from "./CreateTable";
 import AddCat from "./Addcategory/AddCat";
+import SubCategory from "./SubCategory/SubCategory";
 const JeevanDashboard = () => {
   const { userData } = useContext(Store);
   const { userDataHandler } = useContext(Store);
@@ -39,8 +40,9 @@ const JeevanDashboard = () => {
           LogOut
         </button>
       </div>
+      <SubCategory />
       <AddCat />
-      {/* <CreateTable />  List of table*/}
+      <CreateTable />
     </div>
   );
 };
